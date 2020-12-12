@@ -18,6 +18,8 @@ async def on_message(message):
 
     if message.content.startswith('guys'): 
         await message.channel.send('and girls')
+    if message.content.startswith('why'): 
+        await message.channel.send('because...')
     if message.content.startswith('-roast '):
         myId = '<@' + str(message.mentions[0].id) + '>'
         await message.channel.send( ' %s, you are bad ' % myId)
