@@ -11,7 +11,7 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-
+    message.content = message.content.lower()
     # if message.content.startswith('spam'): 
     #     await message.channel.send('spam')
 
