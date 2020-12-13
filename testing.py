@@ -13,11 +13,13 @@ async def on_ready():
 @client.event
 async def on_message(message):
     message.content = message.content.lower()
-    messageSenderId = '<@' + str(message.mentions[0].id) + '>'
+    if(message.mentions[0].id != ''):
+        messageSenderId = '<@' + str(message.mentions[0].id) + '>'
+    
 
     responses = {
     'guys': 'and girls',
-    'why': "because",
+    'why': "because...",
     'yoink': 'stop yoinken\' the wifi bumbo',
     'this is': 'is it now?',
     'shut up': 'rude',
@@ -28,7 +30,11 @@ async def on_message(message):
     '-roastme': 'no one:\nnot even vikram:\n{.author.name}: is a potatohead'.format(message),
     'no u': 'daaaaamn {.author.name} hit em with dat uno reverse card'.format(message),
     'girls': 'and guys',
-    '-roast ': ' %s, you are bad ' % messageSenderId
+    '-roast ': ' %s, you are bad ' % messageSenderId,
+    'vikram': 'I am cooler than him :sunglasses:',
+    'kyle': 'kyle *would* be like that',
+    'vc': 'yes',
+    'hmm': 'what?'
     }
 
     if message.author == client.user:
