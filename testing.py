@@ -13,9 +13,9 @@ async def on_ready():
 @client.event
 async def on_message(message):
     message.content = message.content.lower()
-    if(message.mentions[0].id != ''):
+
+    if(len(message.mentions) != 0):
         messageSenderId = '<@' + str(message.mentions[0].id) + '>'
-    
 
     responses = {
     'guys': 'and girls',
@@ -50,6 +50,6 @@ async def on_message(message):
         else:
             await message.channel.send('*Hello {.author.name}!*'.format(message))
         
-
+    
 
 client.run('NzM4NTM0NjYwNDc2NTAyMDI2.XyNUAA.Uw9GF-7oZgd7zzGkvd9nbikiwNc')
