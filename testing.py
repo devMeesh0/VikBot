@@ -13,9 +13,11 @@ async def on_ready():
 @client.event
 async def on_message(message):
     message.content = message.content.lower()
+    messageSenderId = ''
 
     if(len(message.mentions) != 0):
         messageSenderId = '<@' + str(message.mentions[0].id) + '>'
+        
 
     responses = {
     'guys': 'and girls',
