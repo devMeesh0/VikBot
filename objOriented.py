@@ -17,18 +17,24 @@ class Reply:
         self.inputType = inputType
         self.userDict = userDict
 
+    # Adds a special reply
     def addSpecialReply(self, user, reply):
         self.userDict.update({user: reply})
 
+    # Removes a special reply
     def removeSpecialReply(self, user):
         self.userDict.pop(user)
 
+    # Returns correct reply given user
     def getReply(self, user):
         finalReply = ""
 
+        # Probability test to see if bot sends message
         if self.frequency > random.randint(1, 100):
+            # Set default message
             finalReply = self.reply
 
+            # Check for any special messages
             for currUser in self.userDict:
                 if currUser == user:
                     finalReply = self.userDict[currUser]
@@ -36,18 +42,23 @@ class Reply:
 
         return finalReply
 
-
+# Finds the correct reply amongst Reply objects
 def findReply(message):
+    # Set default values
     finalReply = ""
 
+    # Go through all the Reply objects
     for obj in responseList:
         # Max substring start index at 0 if searchType == 1
         endVal = 0 if obj.searchType == 1 else len(message.content) - 1
         index = message.content.find(obj.message)
 
+        # Check if index is a valid value
         if index != -1 and index <= endVal:
+            # Get correct reply from Reply object
             finalReply = obj.getReply(message.author.name)
 
+            # Format based on inputType key
             if obj.inputType == 1:
                 finalReply = finalReply.format(message.author.name)
             elif obj.inputType == 2:
@@ -59,7 +70,7 @@ def findReply(message):
 
     return finalReply
 
-
+# Define all Replies in a list
 responseList = [Reply("guys", "and girls", 50),
                 Reply("why", "because...", 50),
                 Reply("yoink", "stop yoinken\' the wifi bumbo", 90),
@@ -105,12 +116,17 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+    # Lower case message content
     message.content = message.content.lower()
 
+    # Ignore messages from bot
     if message.author == client.user:
         return
 
+    # Find correct reply
     finalReply = findReply(message)
+    
+    # If reply isn't empty string, send
     if len(finalReply) > 0:
         await message.channel.send(finalReply)
 
