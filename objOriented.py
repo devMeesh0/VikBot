@@ -1,12 +1,14 @@
 import discord
+import random
 
 client = discord.Client()
 
 
 class Reply:
-    def __init__(self, message, reply, userDict={}):
+    def __init__(self, message, reply, frequency=100, userDict={}):
         self.message = message
         self.reply = reply
+        self.frequency = frequency
         self.userDict = userDict
 
     def addSpecialReply(self, user, reply):
@@ -16,12 +18,15 @@ class Reply:
         self.userDict.pop(user)
 
     def getReply(self, user):
-        finalReply = self.reply
+        finalReply = ""
 
-        for currUser in self.userDict:
-            if currUser == user:
-                finalReply = self.userDict[user]
-                break
+        if self.frequency > random.randint(1, 100):
+            finalReply = self.reply
+
+            for currUser in self.userDict:
+                if currUser == user:
+                    finalReply = self.userDict[currUser]
+                    break
 
         return finalReply
 
@@ -37,30 +42,37 @@ def findReply(message, user):
     return finalReply
 
 
-responseList = [Reply("guys", "and girls"),
-                Reply("why", "because..."),
-                Reply("yoink", "stop yoinken\' the wifi bumbo"),
-                Reply("-hello", "Hello!", {'kgupta_1542': 'shut up kanishk'}),
-                Reply("this is", "is it now?"),
-                Reply("shut up", "rude"),
-                Reply("VikBot", "righhhhht..."),
-                Reply("spam", "spam-mer? I barely know-her!"),
-                Reply("is it", "its not. \nno way... \nwe made it up.\nit\'s a total fabrication"),
-                Reply("kg", "is the best",
-                      {'marlee noelle': "SUS!"}),
+responseList = [Reply("guys", "and girls", 50),
+                Reply("why", "because...", 50),
+                Reply("yoink", "stop yoinken\' the wifi bumbo", 25),
+                Reply("-hello", "Hello!", 100, {'kgupta_1542': 'shut up kanishk'}),
+                Reply("this is", "is it now?", 5),
+                Reply("shut up", "rude", 75),
+                Reply("VikBot", "righhhhht...", 5),
+                Reply("spam", "spam-mer? I barely know-her!", 10),
+                Reply("is it", "its not. \nno way... \nwe made it up.\nit\'s a total fabrication", 5),
+                Reply("kg", "is the best", 10,
+                      {'marlee noelle': "SUS!",
+                       "VikBot": "is bad"}),
+                Reply("ameesh", "", 33,
+                      {"VikBot": "ooh vik and ameesh sitting in a tree. Playing a game together, Rocket League"}),
                 Reply("-roastme", "no one:\nnot even vikram:\nameesh: is a potatohead"),
-                Reply("no u", "daaaaamn hit em with dat uno reverse card"),
-                Reply("girls", "and guys"),
-                Reply("-roast", "you are bad"),
-                Reply("vikram", "I am cooler than him :sunglasses:",
+                Reply("no u", "daaaaamn hit em with dat uno reverse card", 15),
+                Reply("girls", "and guys", 25),
+                Reply("-roast", "you are bad", 100),
+                Reply("vikram", "I am cooler than him :sunglasses:", 15,
                     {'VikBot': "why are you talking to yourself idiot?",
                      'ameesh_daryani': "ooh vik and ameesh sitting in a tree. Playing a game together, Rocket League"}),
-                Reply("kyle", "kyle *would* be like that"),
-                Reply("vc", "yes"),
-                Reply("hmm", "what?"),
-                Reply("Bah", "",
-                      {'marlee noelle': "https://tenor.com/view/spongebob-laughing-lol-haha-happy-gif-15812661"}),
-                Reply("gottem", "https://tenor.com/view/ladies-and-gentleman-we-got-him-gif-12313683")]
+                Reply("kyle", "kyle *would* be like that", 15),
+                Reply("vc", "yes", 65),
+                Reply("hmm", "what?", 10),
+                Reply("bah", "Stop copying Marlee smh", 65,
+                      {'marlee noelle': "bah indeed"}),
+                Reply("gottem", "https://tenor.com/view/ladies-and-gentleman-we-got-him-gif-12313683", 100),
+                Reply("pls work", "", 100,
+                      {"Kyler Fung", "go get a real job in the real world"}),
+                Reply("bikram", "goat yoga therapy? Yes please", 35,
+                      {"VikBot": "love yoga! love goats :love_you_gesture: :star_struck:"})]
 
 
 @client.event
