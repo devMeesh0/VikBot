@@ -35,7 +35,7 @@ def findReply(message, user):
     finalReply = ""
 
     for obj in responseList:
-        if message.startswith(obj.message):
+        if message.find(obj.message) != -1:
             finalReply = obj.getReply(user)
             break
 
@@ -45,7 +45,8 @@ def findReply(message, user):
 responseList = [Reply("guys", "and girls", 50),
                 Reply("why", "because...", 50),
                 Reply("yoink", "stop yoinken\' the wifi bumbo", 25),
-                Reply("-hello", "Hello!", 100, {'kgupta_1542': 'shut up kanishk'}),
+                Reply("-hello", "Hello!", 100,
+                      {'kgupta_1542': 'shut up kanishk'}),
                 Reply("this is", "is it now?", 5),
                 Reply("shut up", "rude", 75),
                 Reply("VikBot", "righhhhht...", 5),
