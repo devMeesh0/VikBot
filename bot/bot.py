@@ -1,5 +1,6 @@
 import discord
 import os
+from PIL import Image
 
 client = discord.Client()
 token = os.getenv("DISCORD_BOT_KEY")
@@ -19,7 +20,7 @@ async def on_message(message):
         messageSenderId = '<@' + str(message.mentions[0].id) + '>'
         
 
-    responses = {'guys': 'and girls', 'why': "because...", 'yoink': 'stop yoinken\' the wifi bumbo', 'this is': 'is it now?', 'shut up': 'rude', 'VikBot:': 'righhhhht...', 'spam': 'spam-mer? i barely know-her!', 'is it': 'its not. \nno way... \nwe made it up.\nit\'s a total fabrication', 'kg': 'is bad', '-roastme': 'no one:\nnot even vikram:\n{.author.name}: is a potatohead'.format(message), 'no u': 'daaaaamn {.author.name} hit em with dat uno reverse card'.format(message), 'girls': 'and guys', '-roast ': ' %s, you are bad ' % messageSenderId, 'vikram': 'I am cooler than him :sunglasses:', 'kyle': 'kyle *would* be like that', 'vc': 'yes', 'hmm': 'what?', 'bro': 'YES?!?!'
+    responses = {'guys': 'and girls', 'why': "because...", 'yoink': 'stop yoinken\' the wifi bumbo', 'this is': 'is it now?', 'shut up': 'rude', 'VikBot:': 'righhhhht...', 'spam': 'spam-mer? i barely know-her!', 'is it': 'its not. \nno way... \nwe made it up.\nit\'s a total fabrication', 'kg': 'is bad', '-roastme': 'no one:\nnot even vikram:\n{.author.name}: is a potatohead'.format(message), 'no u': 'daaaaamn {.author.name} hit em with dat uno reverse card'.format(message), 'girls': 'and guys', '-roast ': ' %s, you are bad ' % messageSenderId, 'vikram': 'I am cooler than him :sunglasses:', 'kyle': 'kyle *would* be like that', 'vc': 'yes', 'hmm': 'what?', 'bro': 'YES?!?!' 
     }
 
     if message.author == client.user:
@@ -36,5 +37,8 @@ async def on_message(message):
             await message.channel.send('*Hello {.author.name}!*'.format(message))
         
     
+# def imageProcessor(image):
+
+
 
 client.run(token)
