@@ -1,8 +1,9 @@
 import discord
 import random
+import os
 
 client = discord.Client()
-
+token = os.getenv("DISCORD_BOT_KEY")
 
 class Reply:
     def __init__(self, message, reply, frequency=100, searchType=0, inputType=0, userDict={}):
@@ -130,4 +131,4 @@ async def on_message(message):
     if len(finalReply) > 0:
         await message.channel.send(finalReply)
 
-client.run('NzM4NTM0NjYwNDc2NTAyMDI2.XyNUAA.Uw9GF-7oZgd7zzGkvd9nbikiwNc')
+client.run(token)
