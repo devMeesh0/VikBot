@@ -1,1 +1,1 @@
-worker: python bot/objOriented.py
+worker: python bot/bot.py
