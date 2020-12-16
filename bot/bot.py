@@ -1,6 +1,7 @@
 import discord
 import os
-from reply import Reply
+from reply import *
+from functions import *
 
 client = discord.Client()
 token = os.getenv("DISCORD_BOT_KEY")
@@ -20,59 +21,51 @@ def findReply(message):
         # Check if index is a valid value
         if index != -1 and index <= endVal:
             # Get correct reply from Reply object
-            finalReply = obj.getReply(message.author.name)
-
-            # Format based on inputType key
-            if obj.inputType == 1:
-                finalReply = finalReply.format(message.author.name)
-            elif obj.inputType == 2:
-                finalReply = finalReply.format(message.author.mention)
-            elif obj.inputType == 3:
-                mention = '<@' + str(message.mentions[0].id) + '>' if len(message.mentions) > 0 else ""
-                finalReply = finalReply.format(mention)
+            finalReply = obj.getReply(message)
             break
 
     return finalReply
 
 
 # Define all Replies in a list
-responseList = [Reply("guys", "and girls", 50),
-                Reply("why", "because...", 50),
-                Reply("yoink", "stop yoinken\' the wifi bumbo", 90),
-                Reply("-hello", "Hello {}!", 100, 1, 2,
+responseList = [FuncReply("-meme", printBack, 100),
+                TextReply("guys", "and girls", 50),
+                TextReply("why", "because...", 50),
+                TextReply("yoink", "stop yoinken\' the wifi bumbo", 90),
+                TextReply("-hello", "Hello {}!", 100, 1, 2,
                       {'kgupta_1542': 'shut up kanishk'}),
-                Reply("this is", "is it now?", 10),
-                Reply("shut up", "rude", 75),
-                Reply("VikBot", "righhhhht...", 85),
-                Reply("spam", "spam-mer? I barely know-her!", 15),
-                Reply("is it", "its not. \nno way... \nwe made it up.\nit\'s a total fabrication", 10),
-                Reply("kg", "is the best", 25, 0, 0,
+                TextReply("this is", "is it now?", 10),
+                TextReply("shut up", "rude", 75),
+                TextReply("VikBot", "righhhhht...", 85),
+                TextReply("spam", "spam-mer? I barely know-her!", 15),
+                TextReply("is it", "its not. \nno way... \nwe made it up.\nit\'s a total fabrication", 10),
+                TextReply("kg", "is the best", 25, 0, 0,
                       {'marlee noelle': "SUS!",
                        "VikBot": "is bad"}),
-                Reply("ameesh", "", 33, 0, 0,
+                TextReply("ameesh", "", 33, 0, 0,
                       {"VikBot": "ooh vik and ameesh sitting in a tree. Playing a game together, Rocket League"}),
-                Reply("-roastme", "no one:\nnot even vikram:\n{}: is a potatohead", 100, 1, 1),
-                Reply("no u", "daaaaamn {} hit em with dat uno reverse card", 15, 1, 1),
-                Reply("girls", "and guys", 25),
-                Reply("-roast", "{} you are bad", 100, 1, 3),
-                Reply("vikram", "I am cooler than him :sunglasses:", 15, 0, 0,
+                TextReply("-roastme", "no one:\nnot even vikram:\n{}: is a potatohead", 100, 1, 1),
+                TextReply("no u", "daaaaamn {} hit em with dat uno reverse card", 15, 1, 1),
+                TextReply("girls", "and guys", 25),
+                TextReply("-roast", "{} you are bad", 100, 1, 3),
+                TextReply("vikram", "I am cooler than him :sunglasses:", 15, 0, 0,
                     {'VikBot': "why are you talking to yourself idiot?",
                      'ameesh_daryani': "ooh vik and ameesh sitting in a tree. Playing a game together, Rocket League"}),
-                Reply("kyle", "kyle *would* be like that", 25),
-                Reply("vc", "yes", 65),
-                Reply("hmm", "what?", 10),
-                Reply("bah", "Stop copying Marlee smh", 65, 0, 0,
+                TextReply("kyle", "kyle *would* be like that", 25),
+                TextReply("vc", "yes", 65),
+                TextReply("hmm", "what?", 10),
+                TextReply("bah", "Stop copying Marlee smh", 65, 0, 0,
                       {'marlee noelle': "bah indeed"}),
-                Reply("gottem", "https://tenor.com/view/ladies-and-gentleman-we-got-him-gif-12313683", 100),
-                Reply("pls work", "", 100, 1, 0,
+                TextReply("gottem", "https://tenor.com/view/ladies-and-gentleman-we-got-him-gif-12313683", 100),
+                TextReply("pls work", "", 100, 1, 0,
                       {"Kyler Fung": "go get a real job in the real world"}),
-                Reply("pls rob", "", 100, 1, 0,
+                TextReply("pls rob", "", 100, 1, 0,
                       {"Kyler Fung": "bruh you are such a delinquent"}),
-                Reply("bikram", "goat yoga therapy? Yes please", 35, 0, 0,
+                TextReply("bikram", "goat yoga therapy? Yes please", 35, 0, 0,
                       {"VikBot": "love yoga! love goats :love_you_gesture: :star_struck:"}),
-                Reply("spencer", "that koding kid", 50, 0, 0,
+                TextReply("spencer", "that koding kid", 50, 0, 0,
                       {"Engineer Zero": "Why you talking to yourself???"}),
-                Reply("-snack", "https://tenor.com/view/snack-gif-19586327", 75, 1, 0)]
+                TextReply("-snack", "https://tenor.com/view/snack-gif-19586327", 75, 1, 0)]
 
 
 @client.event
