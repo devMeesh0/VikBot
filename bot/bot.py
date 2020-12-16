@@ -1,7 +1,8 @@
 import discord
+import os
 
 client = discord.Client()
-# str user1
+token = os.getenv("DISCORD_BOT_KEY")
 
 @client.event
 async def on_ready():
@@ -57,4 +58,4 @@ async def on_message(message):
         
 
 
-client.run('NzM4NTM0NjYwNDc2NTAyMDI2.XyNUAA.Uw9GF-7oZgd7zzGkvd9nbikiwNc')
+client.run('token')
