@@ -1,15 +1,24 @@
 import discord
 import os
 from PIL import Image
+from discord.ext import commands
 
 client = discord.Client()
 token = os.getenv("DISCORD_BOT_KEY")
 
 
+description = '''BRO ITS VIKBOT.'''
+
+intents = discord.Intents.default()
+intents.members = True
+
+bot = commands.Bot(command_prefix='-', description=description, intents=intents)
+
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     
+
 
 @client.event
 async def on_message(message):
@@ -36,8 +45,13 @@ async def on_message(message):
         else:
             await message.channel.send('*Hello {.author.name}!*'.format(message))
         
-    
 # def imageProcessor(image):
+
+@bot.command()
+async def repeat(ctx, times: int, content='repeating...'):
+    """Repeats a message multiple times."""
+    for i in range(times):
+        await ctx.send(content)
 
 
 
