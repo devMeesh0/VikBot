@@ -92,6 +92,6 @@ def printBack(arr):
 # def roulette(message):
 #     if random.randrange(1,7) == 1:
 #         # kick(message.user.Id)
-#         message.channel.send('HAH u ded')
+#         return 'HAH u ded'
 #     else :
-#         message.channel.send('ew u alive still??!?')
+#         return 'ew u alive still??!?'
