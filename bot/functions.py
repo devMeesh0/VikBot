@@ -15,7 +15,7 @@ def importImage(link):
 
 
 def saveImage(img):
-    if img is not None:
+    if img is not None: 
         img = np.uint8(img)
         io.imsave("sample.jpg", img)
         return discord.File("sample.jpg")
@@ -88,3 +88,10 @@ def printBack(arr):
         reply = arr[1] + " \n" + arr[2]
 
     return reply
+
+# def roulette(message):
+#     if random.randrange(1,7) == 1:
+#         # kick(message.user.Id)
+#         message.channel.send('HAH u ded')
+#     else :
+#         message.channel.send('ew u alive still??!?')
