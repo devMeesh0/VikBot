@@ -1,5 +1,6 @@
 from skimage import io, feature, color, transform
 import discord
+from discord.ext import commands
 import numpy as np
 import random
 
@@ -89,9 +90,9 @@ def printBack(arr):
 
     return reply
 
-# def roulette(message):
-#     if random.randrange(1,7) == 1:
-#         # kick(message.user.Id)
-#         return 'HAH u ded'
-#     else :
-#         return 'ew u alive still??!?'
+def roulette(ctx, message, member : discord.Member):
+    if random.randrange(1,7) == 1:
+        ctx.kick(member.User)
+        return 'hah DED!'
+    else :
+        return 'ew u alive still??!?'

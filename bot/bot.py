@@ -2,9 +2,12 @@ import discord
 import os
 from reply import *
 from functions import *
+from discord.ext import commands
+import random
 
-client = discord.Client()
+client = commands.Bot(command_prefix='-')
 token = os.getenv("DISCORD_BOT_KEY")
+
 
 
 # Finds the correct reply amongst Reply objects
@@ -27,13 +30,16 @@ def findReply(message):
     return finalReply
 
 
+
+
+
 # Define all Replies in a list
 responseList = [FuncReply("-warp", warp, 100),
                 FuncReply("-swirl", swirl, 100),
                 FuncReply("-edge", edges, 100),
                 FuncReply("-gray", grayscale, 100),
                 FuncReply("-meme", printBack, 100),
-            #     FuncReply("-roulette", roulette, 100),
+                FuncReply("-roulette", roulette, 100),
                 TextReply("guys", "and girls", 50),
                 TextReply("why", "because...", 50),
                 TextReply("yoink", "stop yoinken\' the wifi bumbo", 90),
@@ -78,8 +84,13 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(client))
 
 
+@client.command()
+async def kick(ctx, member : discord.Member, *, reason=None):
+    print('the kick function has been called')
+    await member.kick(reason=reason)
+
 @client.event
-async def on_message(message):
+async def on_message(self, ctx, message):
     # Lower case message content
     message.content = message.content.lower()
 
@@ -93,8 +104,8 @@ async def on_message(message):
     # If reply isn't empty string, send
     if type(finalReply) is str:
         if len(finalReply) > 0:
-            await message.channel.send(finalReply)
+            await ctx.send(finalReply)
     else:
-        await message.channel.send(file=finalReply)
+        await ctx.send(file=finalReply)
 
 client.run(token)
