@@ -90,7 +90,7 @@ async def kick(ctx, member : discord.Member, *, reason=None):
     await member.kick(reason=reason)
 
 @client.event
-async def on_message(self, ctx, message):
+async def on_message(message):
     # Lower case message content
     message.content = message.content.lower()
 
@@ -104,8 +104,10 @@ async def on_message(self, ctx, message):
     # If reply isn't empty string, send
     if type(finalReply) is str:
         if len(finalReply) > 0:
-            await ctx.send(finalReply)
+            await message.channel.send(finalReply)
     else:
-        await ctx.send(file=finalReply)
+        await message.channel.send(file=finalReply)
+
+    await client.process_commands(message)
 
 client.run(token)
