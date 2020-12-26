@@ -1,0 +1,28 @@
+import discord
+from discord.ext import commands
+import random
+
+
+class games	(commands.Cog):
+
+	def __init__(self, client):
+		self.client = client 
+
+	@commands.command()
+	async def kick(self, ctx, member: discord.Member, *, reason = None):
+		await member.kick(reason=reason)
+
+	@commands.command()
+	async def roulette(self, ctx, *, reason = None):
+	    if random.randrange(1,7) == 1:   
+	    	await ctx.message.author.kick(reason=reason)
+	    	link = await ctx.channel.create_invite(max_age = 300)
+	    	await ctx.send('hah DED!')
+
+	    	channel = await ctx.message.author.create_dm()
+    		await channel.send(link)
+	    else:
+	    	await ctx.send('ew u alive still??!?')
+	
+def setup(client):
+	client.add_cog(games(client))

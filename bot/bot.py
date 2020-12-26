@@ -1,9 +1,22 @@
-import discord
-import os
-from reply import *
-from functions import *
-from discord.ext import commands
-import random
+from progress.bar import Bar # lol i got bored so now there's a loading bar that has legit no use XD
+print("Loading...")
+imports = [
+    'import discord',
+    'import os',
+    'from reply import *',
+    'from functions import *',
+    'from discord.ext import commands',
+    'import random'
+]
+
+bar = Bar('', max=len(imports))
+for i in range(0, len(imports)):
+    exec(str(imports[i]))
+    bar.next()
+bar.finish()
+
+
+
 
 client = commands.Bot(command_prefix='-')
 token = os.getenv("DISCORD_BOT_KEY")
@@ -34,16 +47,15 @@ def findReply(message):
 
 
 # Define all Replies in a list
-responseList = [FuncReply("-warp", warp, 100),
-                FuncReply("-swirl", swirl, 100),
-                FuncReply("-edge", edges, 100),
-                FuncReply("-gray", grayscale, 100),
-                FuncReply("-meme", printBack, 100),
-                FuncReply("-roulette", roulette, 100),
+responseList = [FuncReply("warp", warp, 100),
+                FuncReply("swirl", swirl, 100),
+                FuncReply("edge", edges, 100),
+                FuncReply("gray", grayscale, 100),
+                FuncReply("meme", printBack, 100),
                 TextReply("guys", "and girls", 50),
                 TextReply("why", "because...", 50),
                 TextReply("yoink", "stop yoinken\' the wifi bumbo", 90),
-                TextReply("-hello", "Hello {}!", 100, 1, 2,
+                TextReply("hello", "Hello {}!", 100, 1, 2,
                       {'kgupta_1542': 'shut up kanishk'}),
                 TextReply("this is", "is it now?", 10),
                 TextReply("shut up", "rude", 75),
@@ -55,10 +67,10 @@ responseList = [FuncReply("-warp", warp, 100),
                        "VikBot": "is bad"}),
                 TextReply("ameesh", "", 33, 0, 0,
                       {"VikBot": "ooh vik and ameesh sitting in a tree. Playing a game together, Rocket League"}),
-                TextReply("-roastme", "no one:\nnot even vikram:\n{}: is a potatohead", 100, 1, 1),
+                TextReply("roastme", "no one:\nnot even vikram:\n{}: is a potatohead", 100, 1, 1),
                 TextReply("no u", "daaaaamn {} hit em with dat uno reverse card", 15, 1, 1),
                 TextReply("girls", "and guys", 25),
-                TextReply("-roast", "{} you are bad", 100, 1, 3),
+                TextReply("roast", "{} you are bad", 100, 1, 3),
                 TextReply("vikram", "I am cooler than him :sunglasses:", 15, 0, 0,
                     {'VikBot': "why are you talking to yourself idiot?",
                      'ameesh_daryani': "ooh vik and ameesh sitting in a tree. Playing a game together, Rocket League"}),
@@ -76,18 +88,28 @@ responseList = [FuncReply("-warp", warp, 100),
                       {"VikBot": "love yoga! love goats :love_you_gesture: :star_struck:"}),
                 TextReply("spencer", "that koding kid", 50, 0, 0,
                       {"Engineer Zero": "Why you talking to yourself???"}),
-                TextReply("-snack", "https://tenor.com/view/snack-gif-19586327", 100, 1, 0)]
+                TextReply("snack", "https://tenor.com/view/snack-gif-19586327", 100, 1, 0)]
 
 
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
+    await client.change_presence(status=discord.Status.idle, activity=discord.Game('devMeesh is at work'))
 
 
 @client.command()
-async def kick(ctx, member : discord.Member, *, reason=None):
-    print('the kick function has been called')
-    await member.kick(reason=reason)
+async def load(ctx, extension):
+    client.load_extension(f'cogs.{extention}')
+
+@client.command()
+async def unload(ctx, extension):
+    client.unload_extension(f'cogs.{extention}')
+
+
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
+
 
 @client.event
 async def on_message(message):

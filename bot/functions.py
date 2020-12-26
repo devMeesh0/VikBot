@@ -90,9 +90,9 @@ def printBack(arr):
 
     return reply
 
-def roulette(ctx, message, member : discord.Member):
-    if random.randrange(1,7) == 1:
-        ctx.kick(member.User)
-        return 'hah DED!'
-    else :
-        return 'ew u alive still??!?'
+# def roulette(ctx, message, member : discord.Member):
+#     if random.randrange(1,7) == 1:
+#         ctx.kick(member.User)
+#         return 'hah DED!'
+#     else :
+#         return 'ew u alive still??!?'
