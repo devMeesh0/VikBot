@@ -90,6 +90,37 @@ def printBack(arr):
 
     return reply
 
+def storeRoles(arr):
+    f = open("roles.txt",'w')
+    for i in arr:
+        f.write(i+ ',')
+    f.close()
+
+def retrieveRoles(search):
+    f = open("roles.txt")
+
+    for line in f:
+        if search in line:
+            roleList = line.replace(",", " , ").split(",")
+            del roleList[0] # don't ask
+            del roleList[0] # don't ask
+            del roleList[0] # don't ask
+            del roleList[len(roleList) - 1] # shush kanishk
+            f.close()
+            f = open("roles.txt",'w')
+            f.seek(0)
+            f.truncate()
+            return roleList
+        else:
+            f.close()
+            return False
+
+    f.close()
+
+
+
+
+
 # def roulette(ctx, message, member : discord.Member):
 #     if random.randrange(1,7) == 1:
 #         ctx.kick(member.User)

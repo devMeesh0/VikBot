@@ -15,10 +15,12 @@ for i in range(0, len(imports)):
     bar.next()
 bar.finish()
 
+intents = discord.Intents.default()
+intents.members = True
 
 
 
-client = commands.Bot(command_prefix='-')
+client = commands.Bot(command_prefix='-', intents = intents)
 token = os.getenv("DISCORD_BOT_KEY")
 
 
@@ -71,7 +73,7 @@ responseList = [FuncReply("warp", warp, 100),
                 TextReply("no u", "daaaaamn {} hit em with dat uno reverse card", 15, 1, 1),
                 TextReply("girls", "and guys", 25),
                 TextReply("roast", "{} you are bad", 100, 1, 3),
-                TextReply("vikram", "I am cooler than him :sunglasses:", 15, 0, 0,
+                TextReply("vikram", "I am cooler than him :sunglasses:", 25, 30, 30,
                     {'VikBot': "why are you talking to yourself idiot?",
                      'ameesh_daryani': "ooh vik and ameesh sitting in a tree. Playing a game together, Rocket League"}),
                 TextReply("kyle", "kyle *would* be like that", 25),
@@ -110,6 +112,15 @@ for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
         client.load_extension(f'cogs.{filename[:-3]}')
 
+
+@client.event
+async def on_member_join(member):
+    roles = retrieveRoles(member.name)
+    for i in roles:
+        Filter = filter(str.isdigit, i)
+        res = "".join(Filter)
+        role = discord.utils.get(member.guild.roles, id = int(res))
+        await member.add_roles(role)
 
 @client.event
 async def on_message(message):
