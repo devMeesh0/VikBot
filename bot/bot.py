@@ -9,6 +9,7 @@ imports = [
     'import random'
 ]
 
+#this makes the dumbo bar thing work [WAOWO]
 bar = Bar('', max=len(imports))
 for i in range(0, len(imports)):
     exec(str(imports[i]))
@@ -19,7 +20,7 @@ intents = discord.Intents.default()
 intents.members = True
 
 
-
+# this is the client
 client = commands.Bot(command_prefix='-', intents = intents)
 token = os.getenv("DISCORD_BOT_KEY")
 
