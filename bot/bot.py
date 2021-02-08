@@ -65,7 +65,8 @@ responseList = [FuncReply("-meme", printBack, 100),
                       {"VikBot": "love yoga! love goats :love_you_gesture: :star_struck:"}),
                 TextReply("spencer", "that koding kid", 50, 0, 0,
                       {"Engineer Zero": "Why you talking to yourself???"}),
-                TextReply("-snack", "https://tenor.com/view/snack-gif-19586327", 75, 1, 0)]
+                TextReply("-snack", "https://tenor.com/view/snack-gif-19586327", 75, 1, 0),
+                TextReply("guy", ":gaillou:", 100, 1, 0)]
 
 
 @client.event
