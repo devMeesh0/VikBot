@@ -67,7 +67,7 @@ responseList = [FuncReply("-meme", printBack, 100),
                       {"Engineer Zero": "Why you talking to yourself???"}),
                 TextReply("-snack", "https://tenor.com/view/snack-gif-19586327", 75, 1, 0),
                 TextReply("guy", "test :gaillou: ", 100, 0, 0),
-                TestReply(":bbb:", "https://tenor.com/view/rage-iquit-angry-table-flip-studying-gif-4905184")]
+                TestReply(":bbb:", "https://tenor.com/view/rage-iquit-angry-table-flip-studying-gif-4905184",100,0,0)]
 
 
 @client.event
