@@ -1,10 +1,29 @@
-import discord
-import os
-from reply import *
-from functions import *
+from progress.bar import Bar # lol i got bored so now there's a loading bar that has legit no use XD
+print("Loading...")
+imports = [
+    'import discord',
+    'import os',
+    'from reply import *',
+    'from functions import *',
+    'from discord.ext import commands',
+    'import random'
+]
 
-client = discord.Client()
+#this makes the dumbo bar thing work [WAOWO]
+bar = Bar('', max=len(imports))
+for i in range(0, len(imports)):
+    exec(str(imports[i]))
+    bar.next()
+bar.finish()
+
+intents = discord.Intents.default()
+intents.members = True
+
+
+# this is the client
+client = commands.Bot(command_prefix='-', intents = intents)
 token = os.getenv("DISCORD_BOT_KEY")
+
 
 
 # Finds the correct reply amongst Reply objects
@@ -27,12 +46,20 @@ def findReply(message):
     return finalReply
 
 
+
+
+
 # Define all Replies in a list
-responseList = [FuncReply("-meme", printBack, 100),
+responseList = [FuncReply("warp", warp, 100),
+                FuncReply("swirl", swirl, 100),
+                FuncReply("edge", edges, 100),
+                FuncReply("gray", grayscale, 100),
+                FuncReply("meme", printBack, 100),
                 TextReply("guys", "and girls", 50),
                 TextReply("why", "because...", 50),
+                TextReply("start the war", "war", 100),
                 TextReply("yoink", "stop yoinken\' the wifi bumbo", 90),
-                TextReply("-hello", "Hello {}!", 100, 1, 2,
+                TextReply("hello", "Hello {}!", 100, 1, 2,
                       {'kgupta_1542': 'shut up kanishk'}),
                 TextReply("this is", "is it now?", 10),
                 TextReply("shut up", "rude", 75),
@@ -44,11 +71,11 @@ responseList = [FuncReply("-meme", printBack, 100),
                        "VikBot": "is bad"}),
                 TextReply("ameesh", "", 33, 0, 0,
                       {"VikBot": "ooh vik and ameesh sitting in a tree. Playing a game together, Rocket League"}),
-                TextReply("-roastme", "no one:\nnot even vikram:\n{}: is a potatohead", 100, 1, 1),
+                TextReply("roastme", "no one:\nnot even vikram:\n{}: is a potatohead", 100, 1, 1),
                 TextReply("no u", "daaaaamn {} hit em with dat uno reverse card", 15, 1, 1),
                 TextReply("girls", "and guys", 25),
-                TextReply("-roast", "{} you are bad", 100, 1, 3),
-                TextReply("vikram", "I am cooler than him :sunglasses:", 15, 0, 0,
+                TextReply("roast", "{} you are bad", 100, 1, 3),
+                TextReply("vikram", "I am cooler than him :sunglasses:", 25, 30, 30,
                     {'VikBot': "why are you talking to yourself idiot?",
                      'ameesh_daryani': "ooh vik and ameesh sitting in a tree. Playing a game together, Rocket League"}),
                 TextReply("kyle", "kyle *would* be like that", 25),
@@ -58,22 +85,45 @@ responseList = [FuncReply("-meme", printBack, 100),
                       {'marlee noelle': "bah indeed"}),
                 TextReply("gottem", "https://tenor.com/view/ladies-and-gentleman-we-got-him-gif-12313683", 100),
                 TextReply("pls work", "", 100, 1, 0,
-                      {"Kyler Fung": "go get a real job in the real world"}),
+                      {"kyl3": "go get a real job in the real world"}),
                 TextReply("pls rob", "", 100, 1, 0,
-                      {"Kyler Fung": "bruh you are such a delinquent"}),
+                      {"kyl3": "bruh you are such a delinquent"}),
                 TextReply("bikram", "goat yoga therapy? Yes please", 35, 0, 0,
                       {"VikBot": "love yoga! love goats :love_you_gesture: :star_struck:"}),
                 TextReply("spencer", "that koding kid", 50, 0, 0,
                       {"Engineer Zero": "Why you talking to yourself???"}),
-                TextReply("-snack", "https://tenor.com/view/snack-gif-19586327", 75, 1, 0),
-                TextReply("guy", "test :gaillou: ", 100, 0, 0),
-                TestReply(":bbb:", "https://tenor.com/view/rage-iquit-angry-table-flip-studying-gif-4905184",100,0,0)]
+                TextReply("snack", "https://tenor.com/view/snack-gif-19586327", 100, 1, 0),
+                TextReply("guy", ":gaillou:", 100, 1, 0)]
 
 
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
+    await client.change_presence(status=discord.Status.idle, activity=discord.Game('devMeesh is at work'))
 
+
+@client.command()
+async def load(ctx, extension):
+    client.load_extension(f'cogs.{extention}')
+
+@client.command()
+async def unload(ctx, extension):
+    client.unload_extension(f'cogs.{extention}')
+
+
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
+
+
+@client.event
+async def on_member_join(member):
+    roles = retrieveRoles(member.name)
+    for i in roles:
+        Filter = filter(str.isdigit, i)
+        res = "".join(Filter)
+        role = discord.utils.get(member.guild.roles, id = int(res))
+        await member.add_roles(role)
 
 @client.event
 async def on_message(message):
@@ -88,7 +138,12 @@ async def on_message(message):
     finalReply = findReply(message)
 
     # If reply isn't empty string, send
-    if len(finalReply) > 0:
-        await message.channel.send(finalReply)
+    if type(finalReply) is str:
+        if len(finalReply) > 0:
+            await message.channel.send(finalReply)
+    else:
+        await message.channel.send(file=finalReply)
+
+    await client.process_commands(message)
 
 client.run(token)
