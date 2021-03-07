@@ -1,20 +1,11 @@
-from progress.bar import Bar # lol i got bored so now there's a loading bar that has legit no use XD
-print("Loading...")
-imports = [
-    'import discord',
-    'import os',
-    'from reply import *',
-    'from functions import *',
-    'from discord.ext import commands',
-    'import random'
-]
+import discord
+import os
+from reply import *
+from functions import *
+from discord.ext import commands
+import random
 
-#this makes the dumbo bar thing work [WAOWO]
-bar = Bar('', max=len(imports))
-for i in range(0, len(imports)):
-    exec(str(imports[i]))
-    bar.next()
-bar.finish()
+
 
 intents = discord.Intents.default()
 intents.members = True
