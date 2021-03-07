@@ -17,7 +17,7 @@ def importImage(link):
 
 def saveImage(img):
     if img is not None: 
-        img = np.uint8(img)
+        # img = np.uint8(img)
         io.imsave("sample.jpg", img)
         return discord.File("sample.jpg")
     else:
