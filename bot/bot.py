@@ -103,6 +103,7 @@ async def unload(ctx, extension):
 
 
 for filename in os.listdir('./pogs'):
+      print(filename)
       if filename.endswith('.py'):
             client.load_extension(f'pogs.{filename[:-3]}')
 
