@@ -95,17 +95,16 @@ async def on_ready():
 
 @client.command()
 async def load(ctx, extension):
-    client.load_extension(f'pogs.{extention}')
+    client.load_extension(f'cogs.{extention}')
 
 @client.command()
 async def unload(ctx, extension):
-    client.unload_extension(f'pogs.{extention}')
+    client.unload_extension(f'cogs.{extention}')
 
-
-for filename in os.listdir('./pogs'):
-      print(filename)
+files = os.getcwd()
+for filename in os.listdir(files):
       if filename.endswith('.py'):
-            client.load_extension(f'pogs.{filename[:-3]}')
+            client.load_extension(f'cogs.{filename[:-3]}')
 
 
 @client.event
