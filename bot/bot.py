@@ -102,10 +102,10 @@ async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extention}')
 
 
-path = os.getcwd() + "/cogs"
-for filename in os.listdir(path):
-    if filename.endswith('.py'):
-        client.load_extension(f'cogs.{filename[:-3]}')
+from os import listdir
+from os.path import realpath, split, join, splitext
+for item in listdir(join(split(realpath(__file__))[0], "cogs")):
+    client.load_extension("cogs." + splitext(item)[0])
 
 
 @client.event
