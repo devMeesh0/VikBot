@@ -47,8 +47,8 @@ responseList = [FuncReply("warp", warp, 100),
                 FuncReply("gray", grayscale, 100),
                 FuncReply("meme", printBack, 100),
                 TextReply("guys", "and girls", 50),
-                TextReply("why", "because...", 50),
-                TextReply("start the war", "war", 100),
+                # TextReply("why", "because...", 10),
+                # TextReply("start the war", "war", 100),
                 TextReply("yoink", "stop yoinken\' the wifi bumbo", 90),
                 TextReply("hello", "Hello {}!", 100, 1, 2,
                       {'kgupta_1542': 'shut up kanishk'}),
@@ -84,7 +84,8 @@ responseList = [FuncReply("warp", warp, 100),
                 TextReply("spencer", "that koding kid", 50, 0, 0,
                       {"Engineer Zero": "Why you talking to yourself???"}),
                 TextReply("snack", "https://tenor.com/view/snack-gif-19586327", 100, 1, 0),
-                TextReply("guy", ":gaillou:", 100, 1, 0)]
+                TextReply("guy", ":gaillou:", 100, 1, 0),
+                TextReply("i think you mean", "don't assume fool",65)]
 
 
 @client.event
