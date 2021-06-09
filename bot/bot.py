@@ -91,21 +91,21 @@ responseList = [FuncReply("warp", warp, 100),
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
-    await client.change_presence(status=discord.Status.online, activity=discord.Game('heroku fuels me.'))
+    await client.change_presence(status=discord.Status.online, activity=discord.Game('devMeesh is at work :)'))
 
 
-@client.command()
-async def load(ctx, extension):
-    client.load_extension(f'cogs.{extention}')
+# @client.command()
+# async def load(ctx, extension):
+#     client.load_extension(f'cogs.{extention}')
 
-@client.command()
-async def unload(ctx, extension):
-    client.unload_extension(f'cogs.{extention}')
+# @client.command()
+# async def unload(ctx, extension):
+#     client.unload_extension(f'cogs.{extention}')
 
-files = os.getcwd()
-for filename in os.listdir(files):
-      if filename.endswith('.py'):
-            client.load_extension(f'cogs.{filename[:-3]}')
+# files = os.getcwd()
+# for filename in os.listdir(files):
+#       if filename.endswith('.py'):
+#             client.load_extension(f'cogs.{filename[:-3]}')
 
 
 @client.event
@@ -137,5 +137,33 @@ async def on_message(message):
         await message.channel.send(file=finalReply)
 
     await client.process_commands(message)
+
+
+
+#------------------ GAMES COMMANDS ------------------#
+
+@client.command()
+async def kick(ctx, member: discord.Member, *, reason = None):
+    await member.kick(reason=reason)
+
+@client.command()
+async def roulette(ctx, *, reason = None):
+    if random.randrange(1,7) == 1:
+
+        arr = [str(r.id) for r in ctx.message.author.roles]
+        arr.insert(0, str(ctx.message.guild))
+        arr.insert(1, str(ctx.message.author))
+        storeRoles(arr)   
+        
+        await ctx.message.author.kick(reason=reason)
+        link = await ctx.channel.create_invite(max_age = 300)
+        await ctx.send('hah DED!')
+
+        channel = await ctx.message.author.create_dm()
+        await channel.send(link)
+        await channel.send('hah dumbo u died... feel free to join again, but be ready for ridicule')
+    else:
+        await ctx.send('ew u alive still??!?')
+
 
 client.run(token)
